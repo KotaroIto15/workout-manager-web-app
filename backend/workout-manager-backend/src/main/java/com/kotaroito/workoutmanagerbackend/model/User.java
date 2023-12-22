@@ -1,21 +1,47 @@
 package com.kotaroito.workoutmanagerbackend.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "users")
+@Entity(name = "Users")
+@Table(name = "Users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @SequenceGenerator(
+        name = "user_sequence",
+        sequenceName = "user_sequence",
+        initialValue = 1,
+        allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long userId;
 
+    @Column(
+        name = "name",
+        updatable = true,
+        nullable = false,
+        columnDefinition = "TEXT"
+    )
     private String name;
+
+    @Column(
+        name = "height",
+        updatable = true,
+        nullable = false
+    )
     private int height;
+
+    @Column(
+        name = "weight",
+        updatable = true,
+        nullable = false
+    )
     private int weight;
 
     public User(String name, int height, int weight) {
