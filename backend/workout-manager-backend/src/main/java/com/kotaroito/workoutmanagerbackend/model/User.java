@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
-@Entity(name = "Users")
+@Entity
 @Table(name = "Users")
 public class User {
 
@@ -19,7 +19,9 @@ public class User {
         initialValue = 1,
         allocationSize = 1
     )
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "user_sequence")
     private long userId;
 
     @Column(
@@ -55,11 +57,13 @@ public class User {
     }
     
     // getters
+    public long getId() { return this.userId; }
     public String getName() { return this.name; }
     public int getHeight() { return this.height; }
     public int getWeight() { return this.weight; }
 
     //setters
+    public void setId(Long id) { this.userId = id; }
     public void setName(String name) { this.name = name; }
     public void setHeight(int height) { this.height = height; }
     public void setWeight(int weight) { this.weight = weight; }
