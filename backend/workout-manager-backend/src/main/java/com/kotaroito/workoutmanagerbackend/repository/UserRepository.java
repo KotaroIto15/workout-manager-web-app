@@ -8,4 +8,6 @@ import com.kotaroito.workoutmanagerbackend.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    public boolean existsByEmail(String email);
+    public User findByEmail(String email);
 }

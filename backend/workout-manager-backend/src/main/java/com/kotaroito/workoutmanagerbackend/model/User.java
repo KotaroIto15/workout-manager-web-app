@@ -1,5 +1,7 @@
 package com.kotaroito.workoutmanagerbackend.model;
 
+import java.util.Set;
+
 import org.hibernate.annotations.Check;
 
 import jakarta.persistence.Column;
@@ -7,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -60,6 +63,7 @@ public class User {
         name = "email",
         updatable = true,
         nullable = false,
+        unique = true,
         columnDefinition = "TEXT"
     )
     @Check(constraints = "email ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'")
@@ -73,7 +77,14 @@ public class User {
     )
     private String password;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Schedule> schedules;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Date> calendar;
+
     // constructors
+    public User() {}
     public User(String firstName, String lastName, String email, int height, int weight, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -81,6 +92,8 @@ public class User {
         this.height = height;
         this.weight = weight;
         this.password = password;
+        this.schedules = null;
+        this.calendar = null;
     };
     
     // getters
