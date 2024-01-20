@@ -17,7 +17,7 @@ public class UserController {
     @GetMapping("/user")
     public String saveUserAndNotify() {
 
-        User newUser = new User("James", 170, 65);
+        User newUser = new User("Kotaro", "Ito", "kotaro@gmail.com", 174, 70, "password");
         userService.createUser(newUser);
 
         return "saved user";

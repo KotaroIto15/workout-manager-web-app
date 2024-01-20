@@ -1,5 +1,7 @@
 package com.kotaroito.workoutmanagerbackend.model;
 
+import org.hibernate.annotations.Check;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,12 +27,20 @@ public class User {
     private long userId;
 
     @Column(
-        name = "name",
+        name = "first_name",
         updatable = true,
         nullable = false,
         columnDefinition = "TEXT"
     )
-    private String name;
+    private String firstName;
+
+    @Column(
+        name = "last_name",
+        updatable = true,
+        nullable = false,
+        columnDefinition = "TEXT"
+    )
+    private String lastName;
 
     @Column(
         name = "height",
@@ -46,25 +56,48 @@ public class User {
     )
     private int weight;
 
-    public User(String name, int height, int weight) {
-        this.name = name;
+    @Column(
+        name = "email",
+        updatable = true,
+        nullable = false,
+        columnDefinition = "TEXT"
+    )
+    @Check(constraints = "email ~ '^[a-zA-Z0-9.!#$%&''*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$'")
+    private String email;
+
+    @Column(
+        name = "password",
+        updatable = true,
+        nullable = false,
+        columnDefinition = "TEXT"
+    )
+    private String password;
+
+    // constructors
+    public User(String firstName, String lastName, String email, int height, int weight, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
         this.height = height;
         this.weight = weight;
-    }
-
-    public User(String name) {
-        this.name = name;
-    }
+        this.password = password;
+    };
     
     // getters
     public long getId() { return this.userId; }
-    public String getName() { return this.name; }
+    public String getFirstName() { return this.firstName; }
+    public String getLastName() { return this.lastName; }
     public int getHeight() { return this.height; }
     public int getWeight() { return this.weight; }
+    public String getEmail() { return this.email; }
+    public String getPassword() { return this.password; }
 
     //setters
     public void setId(Long id) { this.userId = id; }
-    public void setName(String name) { this.name = name; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
     public void setHeight(int height) { this.height = height; }
     public void setWeight(int weight) { this.weight = weight; }
+    public void setEmail(String email) { this.email = email; }
+    public void setPassword(String password) { this.password = password; }
 }
