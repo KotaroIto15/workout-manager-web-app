@@ -9,7 +9,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import java.util.Set;
+
+import java.util.List;
 
 @Entity
 @Table(name = "Schedules")
@@ -33,7 +34,7 @@ public class Schedule {
     private User user;
 
     @OneToMany(mappedBy = "schedule")
-    private Set<Workout> workouts;
+    private List<Workout> workouts;
 
     // constructors
     public Schedule() {}
@@ -41,16 +42,20 @@ public class Schedule {
         this.user = user;
         this.workouts = null;
     }
+    public Schedule(User user, List<Workout> workouts) {
+        this.user = user;
+        this.workouts = workouts;
+    }
 
     // getters
     public long getId() { return this.scheduleId; }
     public User getUser() { return this.user; }
-    public Set<Workout> getWorkouts() { return this.workouts; }
+    public List<Workout> getWorkouts() { return this.workouts; }
 
     // setters
     public void setId(long id) { this.scheduleId = id; }
     public void setUser(User user) { this.user = user; }
-    public void setWorkouts(Set<Workout> workouts) { this.workouts = workouts; }
+    public void setWorkouts(List<Workout> workouts) { this.workouts = workouts; }
     public void addWorkout(Workout workout) { this.workouts.add(workout); }
     public void removeWorkout(Workout workout) { this.workouts.remove(workout); }
 }
